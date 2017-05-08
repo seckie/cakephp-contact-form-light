@@ -58,7 +58,7 @@ class ContactsTable extends Table
 
         $validator
             ->integer('subject')
-            ->requirePresence('subject', 'create')
+            ->requirePresence('subject', 'create', $messages['isRequired'])
             ->notEmpty('subject', $messages['notEmpty']);
 
         $validator
@@ -66,7 +66,7 @@ class ContactsTable extends Table
                 'rule' => ['maxLength', 255],
                 'message' => $messages['tooLong']
             ])
-            ->requirePresence('username', 'create')
+            ->requirePresence('username', 'create', $messages['isRequired'])
             ->notEmpty('username', $messages['notEmpty']);
 
         $validator
@@ -77,12 +77,12 @@ class ContactsTable extends Table
                 },
                 'message' => $messages['invalidTelFormat']
             ])
-            ->requirePresence('tel', 'create')
+            ->requirePresence('tel', 'create', $messages['isRequired'])
             ->allowEmpty('tel');
 
         $validator
             ->notEmpty('email', $messages['notEmpty'])
-            ->requirePresence('email', 'create')
+            ->requirePresence('email', 'create', $messages['isRequired'])
             ->add('email', 'email_format', [
                 'rule' => 'email',
                 'message' => $messages['invalidEmailFormat']
@@ -100,7 +100,7 @@ class ContactsTable extends Table
             ]);
 
         $validator
-            ->requirePresence('comment', 'create')
+            ->requirePresence('comment', 'create', $messages['isRequired'])
             ->notEmpty('comment', $messages['notEmpty']);
 
         return $validator;
