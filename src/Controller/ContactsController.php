@@ -26,7 +26,7 @@ class ContactsController extends AppController
 
         $defaultSubjects = Configure::read('ContactFormLight.default.subjects');
         $subjects = Configure::read('ContactFormLight.subjects');
-        $this->subjects = gettype($subjects) === 'array' ? $subjects : $defaultSubjects;
+        $this->subjects = is_array($subjects) ? $subjects : $defaultSubjects;
     }
 
     /**
