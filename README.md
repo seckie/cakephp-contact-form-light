@@ -126,6 +126,7 @@ return [
             'validation' => [
                 'messages' => [
                     'notEmpty' => 'This field cannot be left empty',
+                    'isRequired' => 'This field is required',
                     'tooLong' => 'The provided value is too long',
                     'invalidFormat' => 'The provided value is invalid',
                     'invalidTelFormat' => 'The provided value is invalid',
