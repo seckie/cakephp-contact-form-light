@@ -86,17 +86,13 @@ class ContactsController extends AppController
      */
     public function send ()
     {
-        if (!$this->request->is('post')) {
-            // Only accespts 'POST' method
+        if (!$this->request->is('post')) { // Only accespts 'POST' method
             return $this->redirect(['action' => 'index']);
         }
 
         $contacts = $this->Contacts->newEntity($this->request->data);
-        if ($contacts->errors()) {
-            $this->errorHandler($contacts->errors());
-            $this->set(compact('contacts'));
-            $this->set([ 'subjects' => $this->subjects ]);
-            return $this->render('index');
+        if ($contacts->errors()) { // Deal with this as system error
+            return $this->redirect(['action' => 'error']);
         }
 
         if ($this->Contacts->save($contacts)) { // save to database
@@ -133,6 +129,15 @@ class ContactsController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function thanks ()
+    {
+    }
+
+    /**
+     * error method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function error ()
     {
     }
 
