@@ -27,6 +27,8 @@ class ContactsController extends AppController
         $defaultSubjects = Configure::read('ContactFormLight.default.subjects');
         $subjects = Configure::read('ContactFormLight.subjects');
         $this->subjects = is_array($subjects) ? $subjects : $defaultSubjects;
+
+        $this->Security->requireAuth('confirm', 'send');
     }
 
     /**
@@ -114,13 +116,14 @@ class ContactsController extends AppController
                 ->setTo($vars['email'])
                 ->setViewVars($vars)
                 ->send();
-        } else {
-            throw new Exception('Couldn\'t save your inquiry to the DB.');
-        }
 
-        // Result
-        $this->Flash->success(__('The contact has been saved.'));
-        $this->redirect(['action' => 'thanks']);
+            // Result
+            $this->Flash->success(__('The contact has been saved.'));
+            $this->redirect(['action' => 'thanks']);
+        } else {
+            $this->Flash->error('Couldn\'t save your inquiry to the DB.');
+            $this->redirect(['action' => 'error']);
+        }
     }
 
     /**
@@ -129,15 +132,6 @@ class ContactsController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function thanks ()
-    {
-    }
-
-    /**
-     * error method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function error ()
     {
     }
 
