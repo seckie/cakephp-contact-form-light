@@ -101,19 +101,25 @@ class ContactsController extends AppController
             $vars['subject'] = $this->subjects[$vars['subject']];
 
             $emailProfile = Configure::read('debug') ? 'debug_contact' : 'contact';
+            $emailProfileConfig = Configure::read($emailProfile);
+            if (isset($emailProfileConfig)) {
+                // Send entry to us
+                $email = new Email($emailProfile);
+                $email->setTemplate('ContactFormLight.contact')
+                    ->setViewVars($vars)
+                    ->send();
 
-            // Send entry to us
-            $email = new Email($emailProfile);
-            $email->setTemplate('ContactFormLight.contact')
-                ->setViewVars($vars)
-                ->send();
+                // Auto reply to user
+                $autoReplyEmail = new Email($emailProfile);
+                $autoReplyEmail->setTemplate('ContactFormLight.autoreply')
+                    ->setTo($vars['email'])
+                    ->setViewVars($vars)
+                    ->send();
 
-            // Auto reply to user
-            $autoReplyEmail = new Email($emailProfile);
-            $autoReplyEmail->setTemplate('ContactFormLight.autoreply')
-                ->setTo($vars['email'])
-                ->setViewVars($vars)
-                ->send();
+            } else if ($emailProfile === 'debug_contact') {
+                // No email feature
+                $this->Flash->error(__('No email profile was found in app.php'));
+            }
 
             // Result
             $this->Flash->success(__('The contact has been saved.'));

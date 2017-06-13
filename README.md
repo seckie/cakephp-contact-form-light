@@ -175,3 +175,33 @@ return [
 ];
 ```
 
+If you want to use e-mail feature, you have to configure e-mail profile into `config/app.php`.
+
+```php
+return [
+    ...
+    'Email' => [
+        ...
+        'contact' => [
+            'transport' => 'default',
+            'from' => 'no-reply@example.com',
+            'to' => ['admin@example.com'],
+            'subject' => 'Default Contact Subject',
+            'template' => 'contact',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
+        ],
+        'debug_contact' => [
+            'transport' => 'default',
+            'from' => 'no-reply@example.com',
+            'to' => ['admin@example.com'],
+            'subject' => 'Default Contact Subject',
+            'template' => 'contact',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
+        ]
+    ],
+    ...
+];
+```
+
