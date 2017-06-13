@@ -76,14 +76,20 @@ $ bin/cake bake all contacts
 
 ### References
 
-https://book.cakephp.org/3.0/ja/quickstart.html
-https://book.cakephp.org/3.0/ja/plugins.html
+- https://book.cakephp.org/3.0/ja/quickstart.html
+- https://book.cakephp.org/3.0/ja/plugins.html
 
 ---
 
-## Usage
+## Install
 
-Install this plugin from [GitHub repository](https://github.com/seckie/cakephp-contact-form-light.git)
+### git clone
+
+```bash
+$ git clone https://github.com/seckie/cakephp-contact-form-light.git ./plugins/ContactFormLight
+```
+
+### Load
 
 Load this plugin in your `config/bootstrap.php` as follows:
 
@@ -91,7 +97,32 @@ Load this plugin in your `config/bootstrap.php` as follows:
 Plugin::load('ContactFormLight', ['bootstrap' => true, 'routes' => true]);
 ```
 
-### Configuration
+Update `composer.json` for autoload:
+
+```php
+    "autoload": {
+        "psr-4": {
+            "App\\": "src",
+            "ContactFormLight\\": "./plugins/ContactFormLight/src",
+            "ContactFormLight\\Test\\": "./plugins/ContactFormLight/tests"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Test\\": "tests",
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests",
+            "ContactFormLight\\Test\\": "./plugins/ContactFormLight/tests"
+        }
+    },
+```
+
+Finally, update composer autoload cache:
+
+```bash
+$ composer dump-autoload
+```
+
+## Configuration
 
 You can override form options in `config/app.php` as follows:
 
@@ -141,6 +172,36 @@ return [
             ]
         ]
     ],
+];
+```
+
+If you want to use e-mail feature, you have to configure e-mail profile into `config/app.php`.
+
+```php
+return [
+    ...
+    'Email' => [
+        ...
+        'contact' => [
+            'transport' => 'default',
+            'from' => 'no-reply@example.com',
+            'to' => ['admin@example.com'],
+            'subject' => 'Default Contact Subject',
+            'template' => 'contact',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
+        ],
+        'debug_contact' => [
+            'transport' => 'default',
+            'from' => 'no-reply@example.com',
+            'to' => ['admin@example.com'],
+            'subject' => 'Default Contact Subject',
+            'template' => 'contact',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
+        ]
+    ],
+    ...
 ];
 ```
 

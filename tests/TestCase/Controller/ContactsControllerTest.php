@@ -33,6 +33,11 @@ class ContactsControllerTest extends IntegrationTestCase
         $subjects = Configure::read('ContactFormLight.subjects');
         $this->subjects = is_array($subjects) ? $subjects : $defaultSubjects;
 
+        // For Csrf component
+        $this->enableCsrfToken();
+        // For Security component
+        $this->enableSecurityToken();
+
         parent::setUp();
     }
 
@@ -127,7 +132,7 @@ class ContactsControllerTest extends IntegrationTestCase
 
         // Error response
         $this->post('/contact-form-light/contacts/send', []);
-        $this->assertResponseContains('<span class="error">');
+        $this->assertRedirect(['controller' => 'Contacts', 'action' => 'error']);
 
         // After 'save'
         $data = [
