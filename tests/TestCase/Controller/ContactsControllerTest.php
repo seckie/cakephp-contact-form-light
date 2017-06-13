@@ -33,6 +33,8 @@ class ContactsControllerTest extends IntegrationTestCase
         $subjects = Configure::read('ContactFormLight.subjects');
         $this->subjects = is_array($subjects) ? $subjects : $defaultSubjects;
 
+        // For Csrf component
+        $this->enableCsrfToken();
         // For Security component
         $this->enableSecurityToken();
 
