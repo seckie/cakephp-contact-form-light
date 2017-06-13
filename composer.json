@@ -1,5 +1,5 @@
 {
-    "name": "seckie/ContactFormLight",
+    "name": "seckie/contact-form-light",
     "description": "ContactFormLight plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
