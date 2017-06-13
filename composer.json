@@ -1,7 +1,6 @@
 {
     "name": "seckie/contact-form-light",
     "description": "ContactFormLight plugin for CakePHP",
-    "version": "1.0.0-dev",
     "type": "cakephp-plugin",
     "require": {
         "php": ">=5.5.9",
